@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+<title>发现</title>
+<link href="_files/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+<div class="con container">
+    <div class="silder_b">
+    	<div class="flexslider">
+            <ul class="slides">
+            [@InfoList attr='focusproduct' limit='4';list]
+            [#list list as info]
+                <li><a href="${info.url}" target="_blank" title="${info.title}"><img src="${info.attrImageUrl}" width="770" height="190"/></a></li>
+            [/#list]
+            [/@InfoList]
+            </ul>
+		</div>
+    </div>
+    <div class="find_con">
+    	<ul>
+    	  <li><a href="javascript:;" title="" target="_blank"><img src="_files/img/findTemp/find_list_img01.jpg" alt="" /><span>上海健康产业产品质量</span></a></li>
+    	  <li><a href="javascript:;" title="" target="_blank"><img src="_files/img/findTemp/find_list_img02.jpg" alt="" /><span>清远市农产品质量安全可追溯平台清远市农产品质量安全可追溯平台</span></a></li>
+    	  <li><a href="javascript:;" title="" target="_blank"><img src="_files/img/findTemp/find_list_img03.jpg" alt="" /><span>国家关于产品质量追溯的政策</span></a></li>
+    	  <li><a href="javascript:;" title="" target="_blank"><img src="_files/img/findTemp/find_list_img04.jpg" alt="" /><span>中国产品质量追溯之全国老年人</span></a></li>
+    	  <li><a href="javascript:;" title="" target="_blank"><img src="_files/img/findTemp/find_list_img05.jpg" alt="" /><span>中国追溯与建行上海分行战略合作</span></a></li>
+    	  <li><a href="javascript:;" title="" target="_blank"><img src="_files/img/findTemp/find_list_img06.jpg" alt="" /><span>建行上海合作签约仪式</span></a></li>
+          <li><a href="javascript:;" title="" target="_blank"><img src="_files/img/findTemp/find_list_img01.jpg" alt="" /><span>上海健康产业产品质量</span></a></li>
+    	  <li><a href="javascript:;" title="" target="_blank"><img src="_files/img/findTemp/find_list_img02.jpg" alt="" /><span>清远市农产品质量安全可追溯平台清远市农产品质量安全可追溯平台</span></a></li>
+    	  <li><a href="javascript:;" title="" target="_blank"><img src="_files/img/findTemp/find_list_img03.jpg" alt="" /><span>国家关于产品质量追溯的政策</span></a></li>
+    	  <li><a href="javascript:;" title="" target="_blank"><img src="_files/img/findTemp/find_list_img04.jpg" alt="" /><span>中国产品质量追溯之全国老年人</span></a></li>
+    	  <li><a href="javascript:;" title="" target="_blank"><img src="_files/img/findTemp/find_list_img05.jpg" alt="" /><span>中国追溯与建行上海分行战略合作</span></a></li>
+    	  <li><a href="javascript:;" title="" target="_blank"><img src="_files/img/findTemp/find_list_img06.jpg" alt="" /><span>建行上海合作签约仪式</span></a></li>
+    	</ul>
+        
+        
+    </div>
+</div>
+
+
+
+</body>
+<script type="text/javascript" src="_files/jquery.js"></script>
+<script type="text/javascript" src="_files/jquery.flexslider-min.js"></script>
+<script type="text/javascript">
+window.onload = window.onresize = function(){
+	document.documentElement.style.fontSize = document.documentElement.clientWidth/320*20+'px';
+	$('.flexslider').flexslider({
+		directionNav: true,
+		pauseOnAction: false,
+		slideshowSpeed: 2000});
+};
+</script>
+</html>

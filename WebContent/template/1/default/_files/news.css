@@ -1,0 +1,97 @@
+html {
+	font-size: 20px;
+}
+
+.center_1 {
+	padding: 0 4%;
+}
+
+.info-title_1 {
+	font-size: 1rem;
+	border-top: 2px solid #458fce;
+	margin-top: 0;
+	padding-top: 10px;
+	font-weight: bold;
+}
+
+.info-text_1 {
+	font-size: 0.6rem;
+	line-height: 1rem;
+}
+
+a {
+	text-decoration: none;
+}
+
+a.page {
+	font-size: 0.5rem;
+	text-decoration: none;
+	color: #000000;
+	float: left;
+	height: 26px;
+	line-height: 26px;
+	padding: 0 8px;
+	margin: 0 3px;
+	background-color: #f0f0f0;
+	border: #cccccc solid 1px;
+}
+
+a.page:hover {
+	text-decoration: none;
+	color: #ff6600;
+}
+
+a.page-curr {
+	font-size: 0.5rem;
+	text-decoration: none;
+	color: #ff6600;
+	float: left;
+	height: 26px;
+	line-height: 26px;
+	padding: 0 8px;
+	margin: 0 3px;
+	background-color: #ffffff;
+	border: #ff6600 solid 1px;
+	color: #ff6600
+}
+
+.digg .digg-item {
+	float: left;
+	padding-left: 90px;
+	width: 46px;
+	height: 36px;
+	line-height: 36px;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 18px;
+	color: #256eb1;
+}
+
+#diggs {
+	background: url(img/digg.png);
+}
+
+#burys {
+	margin-left: 20px;
+	background: url(img/digg.png) no-repeat -149px 0;
+}
+
+#diggs:hover {
+	background: url(img/digg.png) 0 -50px;
+}
+
+#burys:hover {
+	background: url(img/digg.png) -149px -50px;
+}
+
+.digg .digg-item {
+	float: left;
+	padding-left: 90px;
+	width: 46px;
+	height: 36px;
+	line-height: 36px;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 18px;
+	color: #256eb1;
+}

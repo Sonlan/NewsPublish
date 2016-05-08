@@ -1,0 +1,83 @@
+[#escape x as (x)!?html]
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<title>${title}_${node.name}_${site.name}${global.customs['poweredby']}</title>
+<meta name="keywords" content="${info.keywords}"/>
+<meta name="description" content="${info.description}"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+<link href="_files/global.css" rel="stylesheet"/>
+<link href="_files/news.css" rel="stylesheet"/>
+[#include 'inc_js.html'/]
+<script type="text/javascript">
+window.onload = window.onresize = function(){
+	document.documentElement.style.fontSize = document.documentElement.clientWidth/320*20+'px';	
+};
+</script>
+</head>
+<body>
+<div class="w center center_1">
+	<div style="padding:10px 5px;font-size:0.5rem;">您的位置:&nbsp; <a href="http://localhost:8080/NewsPublish">头条</a> > 正文</div>
+	<div class="left w2">
+		<h1 class="info-title info-title_1">[#noescape]${bbcode(title)}[/#noescape]</h1>
+		<div class="c-666" style="font-size:0.5rem;padding:0 20px 20px 20px;text-align:center;border-bottom:1px dotted #458fce;">
+			<span class="info-detail">${info.publishDate?string('yyyy-MM-dd HH:mm')}</span>
+			[#if info.sourceUrl??]
+			<span class="info-detail"><a href="${info.sourceUrl}" target="_blank" class="a-hover c-666">${info.source}</a></span>
+			[#else]
+			<span class="info-detail">${info.source}</span>			
+			[/#if]
+			<span class="info-detail">${info.author!info.creator.realName!info.creator.username}</span>
+			<span class="info-detail"><span id="info_views"></span>次阅读</span>
+			<script type="text/javascript">
+				$("#info_views").load("${dy}/info_views/${info.id}.jspx?d="+new Date()*1);
+			</script>
+		</div>
+		<div class="info-text mt20 info-text_1">
+			[#noescape]${text}[/#noescape]
+		</div>
+		<table class="center mt20"><tr><td>
+			[#if pagedList.totalPages>1]
+				[#include 'page.html'/]
+			[/#if]
+		</td></tr></table>
+		<table class="digg center mt20"><tr><td>
+			<script type="text/javascript">
+				function digg() {
+					$.post("${dy}/info_digg.jspx",{id:${info.id}},function(data){
+						if(data!="0"){$("#diggs").text(data);}else{alert("你已经顶过一次！")}
+					});
+				}
+				function bury() {
+					$.post("${dy}/info_bury.jspx",{id:${info.id}},function(data){
+						if(data!="0"){$("#burys").text(data);}else{alert("你已经踩过一次！")}
+					});
+				}
+			</script>
+			<div id="diggs" class="digg-item" onclick="digg();"></div>
+			<div id="burys" class="digg-item" onclick="bury();"></div>
+			<div class="clear"></div>
+			<script type="text/javascript">
+				$.get("${dy}/info_diggs/${info.id}.jspx?d="+new Date()*1,function(data) {
+					$("#diggs").text(data[0]);$("#burys").text(data[1]);
+				},"json");
+			</script>
+		</td></tr></table>
+			<div class="bdsharebuttonbox mt20">
+				<a href="#" class="bds_more a-none" data-cmd="more">分享到：</a><a
+					href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a> <a
+					href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a><a
+					href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a
+					href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a
+					href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a
+					href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+			</div>
+			<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"24"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+		
+	</div>
+	<div class="clear"></div>
+</div>
+</body>
+</html>
+[/#escape]

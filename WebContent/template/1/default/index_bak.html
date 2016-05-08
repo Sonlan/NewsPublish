@@ -1,0 +1,120 @@
+[#escape x as (x)!?html]
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<title>${site.fullNameOrName}${global.customs['poweredby']}</title>
+<meta name="keywords" content="${node.keywords}"/>
+<meta name="description" content="${node.description}"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+<link href="_files/global.css" rel="stylesheet"/>
+<link href="_files/style.css" rel="stylesheet"/>
+<link href="_files/news_home.css" rel="stylesheet"/>
+[#include 'inc_js.html'/]
+</head>
+<body>
+	<div class="strive_slider" id="strive">
+	[@InfoList attr='focus' limit='4';list]
+		<ul>
+			[#list list as info]
+			<li>
+				<a href="${info.url}" title="${info.title}" target="_blank">
+					<img src="${info.attrImageUrl}" alt="${info.title}" height="200"/>
+				 </a>
+			</li>
+			[/#list]
+	    </ul>
+	    <ol>
+	    	[#list list as info]
+	    	[#if info_index = 0]
+	    	<li class="on"></li>
+	    	[/#if]
+	    	[#if info_index > 0]
+	    	<li></li>
+	    	[/#if]
+	        [/#list]
+	    </ol>
+	   [/@InfoList]
+	</div>
+	
+	<div style=" width:100%;">
+	<div class="w2 w2_k">
+		[@NodeList parent='news'limit='1';list]
+		[#list list as node]
+		<div class="w1" id="div_home">
+			[@InfoList nodeId=node.id limit='5';list]
+			[#list list as info]
+			<div style="padding:10px;" id="${substring(info.url,32,'...')}">
+				<a class="left" style="width:30%;" href="${info.url}" target="_blank" title="${info.title}">
+					<img src="${info.smallImageUrl}"/>
+				</a>
+				<div class="right" style="width:65%; margin-left:5%;">
+					<div><a class="fs14 fs14_1 b a-hover c-infoem" href="${info.url}" title="${info.title}" target="_blank">${substring(info.title,10,'...')}</a></div>
+					<div class="mt5_1 mt5 c-desc">${substring(info.description,32,'...')} <a class="c-node_1 c-node a-all" href="${info.url}" target="_blank">[详细]</a></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			[/#list]
+			[/@InfoList]
+		</div>
+		[/#list]
+		[/@NodeList]
+	</div>
+	<div class="clear"></div>
+</div>
+</body>
+<script type="text/javascript">
+	window.onload = window.onresize = function(){
+		document.documentElement.style.fontSize = document.documentElement.clientWidth/320*20+'px';	
+	};
+
+	 $(document).ready(function(){  
+	        var range = 50;             //距下边界长度/单位px  
+	        var elemt = 500;           //插入元素高度/单位px  
+	        var num = 1;  
+	        var totalheight = 0;   
+	        $(window).scroll(function(){  
+	            var srollPos = $(window).scrollTop();    //滚动条距顶部距离(页面超出窗口的高度)  
+	            totalheight = parseFloat($(window).height()) + parseFloat(srollPos);  
+	            if(($(document).height()-range) <= totalheight ) {  
+	            	getMoreData();
+	            }  
+	        });  
+	    });  
+	
+		function getMoreData(){
+			//获取第一个div的Infoid
+			var infourl = $("#div_home a:first-child").attr("href");
+			//  /NewsPublish/info/127.jspx
+			var infoid = infourl.substring(18).replace(".jspx","");
+			
+			 $.ajax({
+			  type: "post", 
+              url: "/NewsPublish/getMoreData.jspx?limit="+$("#div_home > div").length+"&firstID="+infoid, 
+              contentType:"application/json",
+              dataType: "json",
+              success: function (data) {
+             	 var length = data.length;
+             	 if (length <= 0) {
+             		 // 没有最新的数据处理
+             		 alert("已经没有数据了...");
+             		 return false;
+             	 }
+             	 // 获取到最新的数据
+             	 for (var i = 0; i < length; i++) {
+             		 var div_ = "<div style='padding:10px;'><a class='left' style='width:30%;' href='"+data[i].url+"' target='_blank' title='"+data[i].title+"'><img src='"+data[i].smallImageUrl+"' /></a>";
+ 				     var div_1 = "<div class='right' style='width:65%; margin-left:5%;'><div><a class='fs14 fs14_1 b a-hover c-infoem' href='"+data[i].url+"' title='"+data[i].title+"' target='_blank'>"+data[i].title_cut+"</a></div><div class='mt5_1 mt5 c-desc'>"+data[i].description_cut+"<a class='c-node a-all' href='"+data[i].url+"' target='_blank'>[详细]</a></div></div>";
+ 					var div_2 = "<div class='clear'></div></div>";
+             		 $("#div_home").append(div_+div_1+div_2);
+             	 }
+              }, 
+              error: function (XMLHttpRequest, textStatus, errorThrown) { 
+                      alert(errorThrown); 
+              } 
+				
+			}); 
+		}
+	
+</script>
+</html>
+[/#escape]

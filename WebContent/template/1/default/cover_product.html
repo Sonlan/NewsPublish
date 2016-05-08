@@ -1,0 +1,79 @@
+[#escape x as (x)!?html]
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<title>${node.name}_${site.fullNameOrName}${global.customs['poweredby']}</title>
+<meta name="keywords" content="${node.keywords}"/>
+<meta name="description" content="${node.description}"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+<link href="_files/global.css" rel="stylesheet"/>
+<link href="_files/style.css" rel="stylesheet"/>
+<link href="_files/news_home.css" rel="stylesheet"/>
+<link href="_files/drag.css" rel="stylesheet"/>
+<script type="text/javascript" src="_files/jquery.js"></script>
+<script type="text/javascript" src="_files/iscroll.js"></script>
+<script type="text/javascript" src="_files/drag.js"></script>
+<script type="text/javascript" src="_files/jquery.flexslider-min.js"></script>
+<style>
+a.a1{color:#676767;text-decoration:none;}
+a.a1:hover{color:#B79768;text-decoration:none;}
+.fp{background-color:#fff;color:#000;display:inline-block;line-height:22px;width:22px;text-align:center;cursor:pointer;border-radius:50%;margin-right:4px;}
+.fp-curr{background-color:#ff4848;color:#fff;}
+</style>
+</head>
+<body>
+<div id="wrapper">
+	<div id="scroller">
+    	<div id="pullDown">
+        	<span class="pullDownIcon"></span><span class="pullDownLabel"> 上拉刷新</span>
+    	</div>
+        <ul id="thelist">
+    	  <li>
+    	  		<div class="silder_b">
+				   	<div class="flexslider">
+				           <ul class="slides">
+						    [@InfoList attr='focusproduct' limit='4';list]
+							[#list list as info]
+								<li><a href="${info.url}" target="_blank" title="${info.title}"><img src="${info.attrImageUrl}"/></a></li>
+							[/#list]
+							[/@InfoList]
+							</ul>
+					</div>
+				</div>
+    	  </li>
+    	  <li style="overflow:hidden;" id="secLi" class="secLi">
+    	  		[@NodeList parentId=node.id limit='1';list]
+				[#list list as n]
+					[@InfoList nodeId=n.id limit='4';list]
+					[#list list as info]
+					<div class="left find_pro_list">
+						<a href="${info.url}" target="_blank" title="${info.title}">
+							<img src="${info.smallImageUrl}" alt="${info.title}"/>
+						</a>
+						<span class="ff-yh fs12">${info.title}</span>
+					</div>
+					[/#list]
+					[/@InfoList]
+				[/#list]
+				[/@NodeList]
+    	  </li>
+    	</ul>
+    	<div id="pullUp">
+            <span class="pullUpIcon"></span><span class="pullUpLabel"> 下拉刷新</span>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+	window.onload = window.onresize = function(){
+		document.documentElement.style.fontSize = document.documentElement.clientWidth/320*20+'px';	
+	};
+	$('.flexslider').flexslider({
+		directionNav: true,
+		pauseOnAction: false,
+		slideshowSpeed: 2000});
+	
+</script>
+</html>
+[/#escape]
